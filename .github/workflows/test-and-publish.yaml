@@ -12,6 +12,7 @@ jobs:
   changelog:
     runs-on: ubuntu-latest
     name: Update CHANGELOG.md
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     steps:
       - uses: actions/checkout@v2
       - name: Fetch tags
@@ -20,6 +21,13 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
+      - name: Set output
+        id: current_tag
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - name: Checkout master
+        run: |
+          git checkout master
+          git pull
       - name: Install auto-changelog from own repo and pandoc
         run: |
           python -m pip install --upgrade pip
@@ -27,20 +35,20 @@ jobs:
           sudo apt install pandoc
       - name: Update changelog using auto-changelog
         run: >
-          auto-changelog --tag-prefix 'v' --stdout --unreleased 
+          auto-changelog --tag-prefix 'v' --stdout --unreleased
+          --latest-version="${{ steps.current_tag.outputs.tag }}"
           | sed -e 'G;' 
           | pandoc --from markdown --to markdown
           > CHANGELOG.md
       - name: Echo CHANGELOG.md
         run: cat CHANGELOG.md
       - name: Commit CHANGELOG.md if processing tag
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           git add CHANGELOG.md
           git commit -m "docs(changelog): update changelog" || echo "no changes"
-          git push || echo "nothing to push"
+          git push || echo "nothing/failed to push"
       - name: Upload CHANGELOG.md artifact
         uses: actions/upload-artifact@v2
         with:
@@ -49,7 +57,6 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    # Requires tests and changelog make pass
     needs: changelog
     name: Release on GitHub
     steps:
