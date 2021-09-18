@@ -13,7 +13,7 @@ Unreleased (2021-09-18)
 -   force fetch
 
 Full set of changes:
-[`v0.0.3...ef885b3`](https://github.com/nialov/python-changelog/compare/v0.0.3...ef885b3)
+[`v0.0.3...ff15ecf`](https://github.com/nialov/python-changelog/compare/v0.0.3...ff15ecf)
 
 v0.0.3 (2021-09-18)
 -------------------
