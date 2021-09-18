@@ -31,6 +31,8 @@ jobs:
           | sed -e 'G;' 
           | pandoc --from markdown --to markdown
           > CHANGELOG.md
+      - name: Echo CHANGELOG.md
+        run: cat CHANGELOG.md
       - name: Commit CHANGELOG.md
         run: |
           git config --global user.name 'github-actions'
@@ -52,6 +54,9 @@ jobs:
           | sed -n '1,/## v/p' 
           | head --lines=-2 
           > RELEASE_CHANGELOG.md
+
+      - name: Echo RELEASE_CHANGELOG.md
+        run: cat RELEASE_CHANGELOG.md
 
       - name: Publish release on GitHub
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
