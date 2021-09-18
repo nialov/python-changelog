@@ -55,8 +55,7 @@ jobs:
       - name: Create incremental changelog
         run: >
           cat CHANGELOG.md 
-          | sed -n '1,/## v/p' 
-          | head --lines=-2 
+          | sed -n '1,/github/p' 
           > RELEASE_CHANGELOG.md
 
       - name: Echo RELEASE_CHANGELOG.md
