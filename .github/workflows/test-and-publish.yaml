@@ -42,10 +42,10 @@ jobs:
           git commit -m "docs(changelog): update changelog" || echo "no changes"
           git push || echo "nothing to push"
       - name: Upload CHANGELOG.md artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          name: changelogs
-          path: changelogs/CHANGELOG.md
+          name: changelog
+          path: CHANGELOG.md
 
   release:
     runs-on: ubuntu-latest
@@ -57,12 +57,13 @@ jobs:
       - name: Fetch tags
         run: git fetch --prune --unshallow --tags --force
       - name: Download CHANGELOG.md artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
-          name: changelogs
+          name: changelog
+          path: TMP_CHANGELOG.md
       - name: Create incremental changelog
         run: >
-          cat changelogs/CHANGELOG.md 
+          cat TMP_CHANGELOG.md 
           | sed -n '1,/github/p' 
           > RELEASE_CHANGELOG.md
 
