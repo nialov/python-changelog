@@ -1,6 +1,22 @@
 Changelog
 =========
 
+Unreleased (2021-09-18)
+-----------------------
+
+#### New Features
+
+-   cron
+
+#### Fixes
+
+-   get tags
+
+-   text
+
+Full set of changes:
+[`v0.0.2...a2fad37`](https://github.com/nialov/python-changelog/compare/v0.0.2...a2fad37)
+
 v0.0.2 (2021-09-18)
 -------------------
 
