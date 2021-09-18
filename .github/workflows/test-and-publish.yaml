@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: changelog
-          path: CHANGELOG.md
+          path: ./CHANGELOG.md
 
   release:
     runs-on: ubuntu-latest
@@ -60,10 +60,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: changelog
-          path: TMP_CHANGELOG.md
       - name: Create incremental changelog
         run: >
-          cat TMP_CHANGELOG.md 
+          cat CHANGELOG.md 
           | sed -n '1,/github/p' 
           > RELEASE_CHANGELOG.md
 
