@@ -20,12 +20,17 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - name: Install commitizen-cli
+      - name: Install auto-changelog from own repo and pandoc
         run: |
           python -m pip install --upgrade pip
-          pip install commitizen
-      - name: Update changelog using commitizen
-        run: cz changelog
+          pip install git+https://github.com/nialov/auto-changelog.git
+          sudo apt install pandoc
+      - name: Update changelog using auto-changelog
+        run: >
+          auto-changelog --tag-prefix 'v' --stdout 
+          | sed -e 'G;' 
+          | pandoc --from markdown --to markdown
+          > CHANGELOG.md
       - name: Commit CHANGELOG.md
         run: |
           git config --global user.name 'github-actions'
