@@ -65,6 +65,7 @@ jobs:
     needs: [changelog]
     name: Release on GitHub
     steps:
+      - uses: actions/checkout@v2
       - name: Create incremental changelog
         run: |
           cat CHANGELOG.md | sed -n '1,/## v/p' | head --lines=-2 > RELEASE_CHANGELOG.md
