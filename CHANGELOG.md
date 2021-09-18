@@ -6,6 +6,8 @@ Unreleased (2021-09-18)
 
 #### Fixes
 
+-   its a dir
+
 -   fix conditional
 
 -   pass CHANGELOG.md
@@ -13,7 +15,7 @@ Unreleased (2021-09-18)
 -   force fetch
 
 Full set of changes:
-[`v0.0.3...ff15ecf`](https://github.com/nialov/python-changelog/compare/v0.0.3...ff15ecf)
+[`v0.0.3...0512e91`](https://github.com/nialov/python-changelog/compare/v0.0.3...0512e91)
 
 v0.0.3 (2021-09-18)
 -------------------
