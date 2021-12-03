@@ -1,0 +1,26 @@
+name: test-and-publish
+
+on:
+  # run on all pushes to any branch
+  push:
+  # run only on master pull requests
+  pull_request:
+    branches: [master]
+  # also run periodically
+
+jobs:
+  testpythonenv:
+    runs-on: ubuntu-latest
+    name: Test python env
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 🐍
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: print python loc form env
+        run: |
+          echo ${{ env.pythonLocation }}
+      - name: print python loc from python --version
+        run: |
+          python --version
